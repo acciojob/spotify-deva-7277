@@ -146,7 +146,40 @@ public class SpotifyRepository {
     }
 
     public Playlist findPlaylist(String mobile, String playlistTitle) throws Exception {
-        return null;
+        User user=null;
+        for(User u:users)
+        {
+            if(u.getMobile().equalsIgnoreCase(mobile))
+            {
+                user=u;
+            }
+        }
+        if(user==null)
+        {
+            throw new Exception("user not exist");
+        }
+        Playlist play=null;
+        for(Playlist p:playlists)
+        {
+            if(p.getTitle().equalsIgnoreCase(playlistTitle))
+            {
+                play=p;
+            }
+        }
+        if(play==null){
+            throw new Exception("user not exist");
+        }
+        List<User> userList = playlistListenerMap.get(play);
+        for(User u: userList) {
+            if (u.equals(user))
+                System.out.println("Do nothing");
+            else {
+                userList.add(user);
+                playlistListenerMap.put(play, userList);
+            }
+        }
+
+        return play;
     }
 
     public Song likeSong(String mobile, String songTitle) throws Exception {
