@@ -36,38 +36,48 @@ public class SpotifyRepository {
         albums = new ArrayList<>();
         artists = new ArrayList<>();
     }
-
+    public SpotifyService spotifyService;
     public User createUser(String name, String mobile) {
+        User user = new User(name,mobile);
+        users.add(user);
+        for(User u: users){
+            System.out.println(u);
+        }
+        return user;
     }
 
     public Artist createArtist(String name) {
+        List<Artist> artists = new ArrayList<>();
+        Artist artist = new Artist(name);
+        artists.add(artist);
+        return artist;
     }
 
-    public Album createAlbum(String title, String artistName) {
-    }
-
-    public Song createSong(String title, String albumName, int length) throws Exception{
-    }
-
-    public Playlist createPlaylistOnLength(String mobile, String title, int length) throws Exception {
-
-    }
-
-    public Playlist createPlaylistOnName(String mobile, String title, List<String> songTitles) throws Exception {
-
-    }
-
-    public Playlist findPlaylist(String mobile, String playlistTitle) throws Exception {
-
-    }
-
-    public Song likeSong(String mobile, String songTitle) throws Exception {
-
-    }
-
-    public String mostPopularArtist() {
-    }
-
-    public String mostPopularSong() {
-    }
+//    public Album createAlbum(String title, String artistName) {
+//    }
+//
+//    public Song createSong(String title, String albumName, int length) throws Exception{
+//    }
+//
+//    public Playlist createPlaylistOnLength(String mobile, String title, int length) throws Exception {
+//
+//    }
+//
+//    public Playlist createPlaylistOnName(String mobile, String title, List<String> songTitles) throws Exception {
+//
+//    }
+//
+//    public Playlist findPlaylist(String mobile, String playlistTitle) throws Exception {
+//
+//    }
+//
+//    public Song likeSong(String mobile, String songTitle) throws Exception {
+//
+//    }
+//
+//    public String mostPopularArtist() {
+//    }
+//
+//    public String mostPopularSong() {
+//    }
 }
