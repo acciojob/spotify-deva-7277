@@ -87,16 +87,24 @@ public class SpotifyRepository {
     }
 
     public Playlist createPlaylistOnLength(String mobile, String title, int length) throws Exception {
+        Playlist playlist = new Playlist(title);
+        List<Song> thisLengthSongs  = new ArrayList<>();
         for(Song a : songs){
             if(a.getLength()==length){
-                List<Song> thisLengthSongs  = new ArrayList<>();
                 thisLengthSongs.add(a);
-                Playlist playlist = new Playlist(title);
                 playlistSongMap.put(playlist,thisLengthSongs);
-                return playlist;
             }
         }
-        return null;
+        for(User u:users)
+        {
+            if(u.getMobile().equalsIgnoreCase(mobile))
+            {
+                List<User> use=new ArrayList<>();
+                use.add(u);
+                playlistListenerMap.put(playlist,use);
+            }
+        }
+        return playlist;
     }
 
     public Playlist createPlaylistOnName(String mobile, String title, List<String> songTitles) throws Exception {
@@ -110,6 +118,15 @@ public class SpotifyRepository {
             }
         }
         playlistSongMap.put(thisNamePlayList,thisNameSongs);
+        for(User u:users)
+        {
+            if(u.getMobile().equalsIgnoreCase(mobile))
+            {
+                List<User> use=new ArrayList<>();
+                use.add(u);
+                playlistListenerMap.put(thisNamePlayList,use);
+            }
+        }
         return thisNamePlayList;
     }
 
