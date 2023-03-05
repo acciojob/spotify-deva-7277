@@ -36,31 +36,19 @@ public class SpotifyRepository {
         albums = new ArrayList<>();
         artists = new ArrayList<>();
     }
-    public SpotifyService spotifyService;
+    // SpotifyService spotifyService=new SpotifyService();
     public User createUser(String name, String mobile) {
         User user = new User(name,mobile);
         users.add(user);
-        for(User u: users){
-            System.out.println(u);
-        }
         return user;
     }
 
     public Artist createArtist(String name) {
         Artist artist = new Artist(name);
         artists.add(artist);
-        for(Artist u: artists){
-            System.out.println(u);
-        }
         return artist;
     }
 
-    public Artist getArtistByName(String artistName){
-        for(Artist a: artists){
-            if(a.getName().equals(artistName)) return a;
-        }
-        return null;
-    }
     public Album createAlbum(String title, String artistName) {
 
         for(Artist u: artists) {
@@ -68,11 +56,13 @@ public class SpotifyRepository {
             if (u.getName().equalsIgnoreCase(artistName)) {
                 Album album = new Album(title);
                 albums.add(album);
-                artistAlbumMap.put(u, albums);
+                List<Album> newList=new ArrayList<>();
+                newList.add(album);
+                artistAlbumMap.put(u, newList);
                 return album;
             }
         }
-            Artist art=spotifyService.createArtist(artistName);
+            Artist art=createArtist(artistName);
             Album album = new Album(title);
             albums.add(album);
             artistAlbumMap.put(art, albums);
