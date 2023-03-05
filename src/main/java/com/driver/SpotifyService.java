@@ -25,19 +25,19 @@ public class SpotifyService {
     }
 
     public Song createSong(String title, String albumName, int length) throws Exception {
-        return null;
+        return spotifyRepository.createSong(title,albumName,length);
     }
 
     public Playlist createPlaylistOnLength(String mobile, String title, int length) throws Exception {
-        return null;
+        return spotifyRepository.createPlaylistOnLength(mobile,title,length);
     }
 
     public Playlist createPlaylistOnName(String mobile, String title, List<String> songTitles) throws Exception {
-        return null;
+        return spotifyRepository.createPlaylistOnName(mobile,title,songTitles);
     }
 
     public Playlist findPlaylist(String mobile, String playlistTitle) throws Exception {
-        return null;
+        return spotifyRepository.findPlaylist(mobile,playlistTitle);
     }
 
     public Song likeSong(String mobile, String songTitle) throws Exception {
