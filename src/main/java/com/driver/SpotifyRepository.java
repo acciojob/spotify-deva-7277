@@ -92,18 +92,33 @@ public class SpotifyRepository {
         for(Song a : songs){
             if(a.getLength()==length){
                 thisLengthSongs.add(a);
-                playlistSongMap.put(playlist,thisLengthSongs);
             }
         }
+        playlistSongMap.put(playlist,thisLengthSongs);
+        List<User> use=new ArrayList<>();
+        User user=null;
         for(User u:users)
         {
             if(u.getMobile().equalsIgnoreCase(mobile))
             {
-                List<User> use=new ArrayList<>();
                 use.add(u);
-                playlistListenerMap.put(playlist,use);
+                user=u;
             }
         }
+        playlistListenerMap.put(playlist,use);
+        creatorPlaylistMap.put(user,playlist);
+        if(userPlaylistMap.containsKey(user))
+        {
+            List<Playlist> newPlayList=userPlaylistMap.get(user);
+            newPlayList.add(playlist);
+            userPlaylistMap.put(user,newPlayList);
+        }
+        else {
+            List<Playlist> newPlayList=new ArrayList<>();
+            newPlayList.add(playlist);
+            userPlaylistMap.put(user,newPlayList);
+        }
+
         return playlist;
     }
 
