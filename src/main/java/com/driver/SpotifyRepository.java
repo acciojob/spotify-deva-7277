@@ -47,37 +47,95 @@ public class SpotifyRepository {
     }
 
     public Artist createArtist(String name) {
-        List<Artist> artists = new ArrayList<>();
         Artist artist = new Artist(name);
         artists.add(artist);
+        for(Artist u: artists){
+            System.out.println(u);
+        }
         return artist;
     }
 
-//    public Album createAlbum(String title, String artistName) {
-//    }
-//
-//    public Song createSong(String title, String albumName, int length) throws Exception{
-//    }
-//
-//    public Playlist createPlaylistOnLength(String mobile, String title, int length) throws Exception {
-//
-//    }
-//
-//    public Playlist createPlaylistOnName(String mobile, String title, List<String> songTitles) throws Exception {
-//
-//    }
-//
-//    public Playlist findPlaylist(String mobile, String playlistTitle) throws Exception {
-//
-//    }
-//
-//    public Song likeSong(String mobile, String songTitle) throws Exception {
-//
-//    }
-//
-//    public String mostPopularArtist() {
-//    }
-//
-//    public String mostPopularSong() {
-//    }
+    public Artist getArtistByName(String artistName){
+        for(Artist a: artists){
+            if(a.getName().equals(artistName)) return a;
+        }
+        return null;
+    }
+    public Album createAlbum(String title, String artistName) {
+        Album album = new Album(title);
+        if(artists.contains(artistName)){
+            albums.add(album);
+            Artist artist = getArtistByName(artistName);
+            List<Album> thisArtistAlbums =  artistAlbumMap.get(artist.getName());
+            thisArtistAlbums.add(album);
+            for(Album thisAlbum : thisArtistAlbums){
+                System.out.println(thisAlbum);
+            }
+            artistAlbumMap.put(artist,thisArtistAlbums);
+        }
+        else{
+            spotifyService.createArtist(artistName);
+            albums.add(album);
+            Artist artist = getArtistByName(artistName);
+            List<Album> thisArtistAlbums =  artistAlbumMap.get(artist.getName());
+            thisArtistAlbums.add(album);
+            for(Album thisAlbum : thisArtistAlbums){
+                System.out.println(thisAlbum);
+            }
+            artistAlbumMap.put(artist,thisArtistAlbums);
+        }
+        for(Artist a: artistAlbumMap.keySet()){
+            List<Album> thisArtistAlbum = artistAlbumMap.get(a);
+            if(thisArtistAlbum!=null){
+                for(Album album1 : thisArtistAlbum){
+                    System.out.println(album1);
+                }
+            }
+        }
+        return album;
+    }
+
+    public Album getAlbumByName(String albumName){
+        for(Album a: albums){
+            if(a.getTitle().equals(albumName)) return a;
+        }
+        return null;
+    }
+    public Song createSong(String title, String albumName, int length) throws Exception{
+        Song song = new Song(title,length);
+        if(albums.contains(albumName)){
+            songs.add(song);
+            Album album = getAlbumByName(albumName);
+            List<Song> thisAlbumSongs = albumSongMap.get(album.getTitle());
+            thisAlbumSongs.add(song);
+        }
+        else{
+            throw new Exception("Album not present");
+        }
+        return song;
+    }
+
+    public Playlist createPlaylistOnLength(String mobile, String title, int length) throws Exception {
+        return null;
+    }
+
+    public Playlist createPlaylistOnName(String mobile, String title, List<String> songTitles) throws Exception {
+        return null;
+    }
+
+    public Playlist findPlaylist(String mobile, String playlistTitle) throws Exception {
+        return null;
+    }
+
+    public Song likeSong(String mobile, String songTitle) throws Exception {
+        return null;
+    }
+
+    public String mostPopularArtist() {
+        return null;
+    }
+
+    public String mostPopularSong() {
+        return null;
+   }
 }
